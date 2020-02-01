@@ -8,7 +8,7 @@
 
 #pragma once
 
-#define MI_LOWEST_VAD_ADDRESS                   (PVOID)MM_LOWEST_USER_ADDRESS
+#define MI_LOWEST_VAD_ADDRESS (PVOID) MM_LOWEST_USER_ADDRESS
 
 /* Make the code cleaner with some definitions for size multiples */
 #define _1KB (1024u)
@@ -19,16 +19,16 @@
 #define _64K (64 * _1KB)
 
 /* Area mapped by a PDE */
-#define PDE_MAPPED_VA  (PTE_COUNT * PAGE_SIZE)
+#define PDE_MAPPED_VA (PTE_COUNT * PAGE_SIZE)
 
 /* Size of a page table */
-#define PT_SIZE  (PTE_COUNT * sizeof(MMPTE))
+#define PT_SIZE (PTE_COUNT * sizeof(MMPTE))
 
 /* Size of a page directory */
-#define PD_SIZE  (PDE_COUNT * sizeof(MMPDE))
+#define PD_SIZE (PDE_COUNT * sizeof(MMPDE))
 
 /* Stop using these! */
-#define PD_COUNT  PPE_PER_PAGE
+#define PD_COUNT PPE_PER_PAGE
 #define PDE_COUNT PDE_PER_PAGE
 #define PTE_COUNT PTE_PER_PAGE
 
@@ -44,31 +44,31 @@ C_ASSERT(SYSTEM_PD_SIZE == PAGE_SIZE);
 // https://www.reactos.org/wiki/Techwiki:Memory_Protection_constants
 // and public assertions.
 //
-#define MM_ZERO_ACCESS         0
-#define MM_READONLY            1
-#define MM_EXECUTE             2
-#define MM_EXECUTE_READ        3
-#define MM_READWRITE           4
-#define MM_WRITECOPY           5
-#define MM_EXECUTE_READWRITE   6
-#define MM_EXECUTE_WRITECOPY   7
-#define MM_PROTECT_ACCESS      7
+#define MM_ZERO_ACCESS 0
+#define MM_READONLY 1
+#define MM_EXECUTE 2
+#define MM_EXECUTE_READ 3
+#define MM_READWRITE 4
+#define MM_WRITECOPY 5
+#define MM_EXECUTE_READWRITE 6
+#define MM_EXECUTE_WRITECOPY 7
+#define MM_PROTECT_ACCESS 7
 
 //
 // These are flags on top of the actual protection mask
 //
-#define MM_NOCACHE            0x08
-#define MM_GUARDPAGE          0x10
-#define MM_WRITECOMBINE       0x18
-#define MM_PROTECT_SPECIAL    0x18
+#define MM_NOCACHE 0x08
+#define MM_GUARDPAGE 0x10
+#define MM_WRITECOMBINE 0x18
+#define MM_PROTECT_SPECIAL 0x18
 
 //
 // These are special cases
 //
-#define MM_DECOMMIT           (MM_ZERO_ACCESS | MM_GUARDPAGE)
-#define MM_NOACCESS           (MM_ZERO_ACCESS | MM_WRITECOMBINE)
-#define MM_OUTSWAPPED_KSTACK  (MM_EXECUTE_WRITECOPY | MM_WRITECOMBINE)
-#define MM_INVALID_PROTECTION  0xFFFFFFFF
+#define MM_DECOMMIT (MM_ZERO_ACCESS | MM_GUARDPAGE)
+#define MM_NOACCESS (MM_ZERO_ACCESS | MM_WRITECOMBINE)
+#define MM_OUTSWAPPED_KSTACK (MM_EXECUTE_WRITECOPY | MM_WRITECOMBINE)
+#define MM_INVALID_PROTECTION 0xFFFFFFFF
 
 //
 // Specific PTE Definitions that map to the Memory Manager's Protection Mask Bits
@@ -87,73 +87,73 @@ C_ASSERT(SYSTEM_PD_SIZE == PAGE_SIZE);
 //
 // Access Flags
 //
-#define PTE_READONLY            0 // Doesn't exist on x86
-#define PTE_EXECUTE             0 // Not worrying about NX yet
-#define PTE_EXECUTE_READ        0 // Not worrying about NX yet
-#define PTE_READWRITE           0x2
-#define PTE_WRITECOPY           0x200
-#define PTE_EXECUTE_READWRITE   0x2 // Not worrying about NX yet
-#define PTE_EXECUTE_WRITECOPY   0x200
-#define PTE_PROTOTYPE           0x400
+#define PTE_READONLY 0     // Doesn't exist on x86
+#define PTE_EXECUTE 0      // Not worrying about NX yet
+#define PTE_EXECUTE_READ 0 // Not worrying about NX yet
+#define PTE_READWRITE 0x2
+#define PTE_WRITECOPY 0x200
+#define PTE_EXECUTE_READWRITE 0x2 // Not worrying about NX yet
+#define PTE_EXECUTE_WRITECOPY 0x200
+#define PTE_PROTOTYPE 0x400
 
 //
 // State Flags
 //
-#define PTE_VALID               0x1
-#define PTE_ACCESSED            0x20
-#define PTE_DIRTY               0x40
+#define PTE_VALID 0x1
+#define PTE_ACCESSED 0x20
+#define PTE_DIRTY 0x40
 
 //
 // Cache flags
 //
-#define PTE_ENABLE_CACHE        0
-#define PTE_DISABLE_CACHE       0x10
+#define PTE_ENABLE_CACHE 0
+#define PTE_DISABLE_CACHE 0x10
 #define PTE_WRITECOMBINED_CACHE 0x10
-#define PTE_PROTECT_MASK        0x612
+#define PTE_PROTECT_MASK 0x612
 #elif defined(_M_AMD64)
 //
 // Access Flags
 //
-#define PTE_READONLY            0x8000000000000000ULL
-#define PTE_EXECUTE             0x0000000000000000ULL
-#define PTE_EXECUTE_READ        PTE_EXECUTE /* EXECUTE implies READ on x64 */
-#define PTE_READWRITE           0x8000000000000002ULL
-#define PTE_WRITECOPY           0x8000000000000200ULL
-#define PTE_EXECUTE_READWRITE   0x0000000000000002ULL
-#define PTE_EXECUTE_WRITECOPY   0x0000000000000200ULL
-#define PTE_PROTOTYPE           0x0000000000000400ULL
+#define PTE_READONLY 0x8000000000000000ULL
+#define PTE_EXECUTE 0x0000000000000000ULL
+#define PTE_EXECUTE_READ PTE_EXECUTE /* EXECUTE implies READ on x64 */
+#define PTE_READWRITE 0x8000000000000002ULL
+#define PTE_WRITECOPY 0x8000000000000200ULL
+#define PTE_EXECUTE_READWRITE 0x0000000000000002ULL
+#define PTE_EXECUTE_WRITECOPY 0x0000000000000200ULL
+#define PTE_PROTOTYPE 0x0000000000000400ULL
 
 //
 // State Flags
 //
-#define PTE_VALID               0x0000000000000001ULL
-#define PTE_ACCESSED            0x0000000000000020ULL
-#define PTE_DIRTY               0x0000000000000040ULL
+#define PTE_VALID 0x0000000000000001ULL
+#define PTE_ACCESSED 0x0000000000000020ULL
+#define PTE_DIRTY 0x0000000000000040ULL
 
 //
 // Cache flags
 //
-#define PTE_ENABLE_CACHE        0x0000000000000000ULL
-#define PTE_DISABLE_CACHE       0x0000000000000010ULL
+#define PTE_ENABLE_CACHE 0x0000000000000000ULL
+#define PTE_DISABLE_CACHE 0x0000000000000010ULL
 #define PTE_WRITECOMBINED_CACHE 0x0000000000000010ULL
-#define PTE_PROTECT_MASK        0x8000000000000612ULL
+#define PTE_PROTECT_MASK 0x8000000000000612ULL
 #elif defined(_M_ARM)
-#define PTE_READONLY            0x200
-#define PTE_EXECUTE             0 // Not worrying about NX yet
-#define PTE_EXECUTE_READ        0 // Not worrying about NX yet
-#define PTE_READWRITE           0 // Doesn't exist on ARM
-#define PTE_WRITECOPY           0 // Doesn't exist on ARM
-#define PTE_EXECUTE_READWRITE   0 // Not worrying about NX yet
-#define PTE_EXECUTE_WRITECOPY   0 // Not worrying about NX yet
-#define PTE_PROTOTYPE           0x400 // Using the Shared bit
+#define PTE_READONLY 0x200
+#define PTE_EXECUTE 0           // Not worrying about NX yet
+#define PTE_EXECUTE_READ 0      // Not worrying about NX yet
+#define PTE_READWRITE 0         // Doesn't exist on ARM
+#define PTE_WRITECOPY 0         // Doesn't exist on ARM
+#define PTE_EXECUTE_READWRITE 0 // Not worrying about NX yet
+#define PTE_EXECUTE_WRITECOPY 0 // Not worrying about NX yet
+#define PTE_PROTOTYPE 0x400     // Using the Shared bit
 
 //
 // Cache flags
 //
-#define PTE_ENABLE_CACHE        0
-#define PTE_DISABLE_CACHE       0x10
+#define PTE_ENABLE_CACHE 0
+#define PTE_DISABLE_CACHE 0x10
 #define PTE_WRITECOMBINED_CACHE 0x10
-#define PTE_PROTECT_MASK        0x610
+#define PTE_PROTECT_MASK 0x610
 #else
 #error Define these please!
 #endif
@@ -169,51 +169,48 @@ extern const ULONG MmProtectToValue[32];
 //
 // Assertions for session images, addresses, and PTEs
 //
-#define MI_IS_SESSION_IMAGE_ADDRESS(Address) \
-    (((Address) >= MiSessionImageStart) && ((Address) < MiSessionImageEnd))
+#define MI_IS_SESSION_IMAGE_ADDRESS(Address) (((Address) >= MiSessionImageStart) && ((Address) < MiSessionImageEnd))
 
-#define MI_IS_SESSION_ADDRESS(Address) \
-    (((Address) >= MmSessionBase) && ((Address) < MiSessionSpaceEnd))
+#define MI_IS_SESSION_ADDRESS(Address) (((Address) >= MmSessionBase) && ((Address) < MiSessionSpaceEnd))
 
-#define MI_IS_SESSION_PTE(Pte) \
-    ((((PMMPTE)Pte) >= MiSessionBasePte) && (((PMMPTE)Pte) < MiSessionLastPte))
+#define MI_IS_SESSION_PTE(Pte) ((((PMMPTE)Pte) >= MiSessionBasePte) && (((PMMPTE)Pte) < MiSessionLastPte))
 
-#define MI_IS_PAGE_TABLE_ADDRESS(Address) \
+#define MI_IS_PAGE_TABLE_ADDRESS(Address)                                                                              \
     (((PVOID)(Address) >= (PVOID)PTE_BASE) && ((PVOID)(Address) <= (PVOID)PTE_TOP))
 
-#define MI_IS_SYSTEM_PAGE_TABLE_ADDRESS(Address) \
+#define MI_IS_SYSTEM_PAGE_TABLE_ADDRESS(Address)                                                                       \
     (((Address) >= (PVOID)MiAddressToPte(MmSystemRangeStart)) && ((Address) <= (PVOID)PTE_TOP))
 
-#define MI_IS_PAGE_TABLE_OR_HYPER_ADDRESS(Address) \
+#define MI_IS_PAGE_TABLE_OR_HYPER_ADDRESS(Address)                                                                     \
     (((PVOID)(Address) >= (PVOID)PTE_BASE) && ((PVOID)(Address) <= (PVOID)MmHyperSpaceEnd))
 
 //
 // Creates a software PTE with the given protection
 //
-#define MI_MAKE_SOFTWARE_PTE(p, x)          ((p)->u.Long = (x << MM_PTE_SOFTWARE_PROTECTION_BITS))
+#define MI_MAKE_SOFTWARE_PTE(p, x) ((p)->u.Long = (x << MM_PTE_SOFTWARE_PROTECTION_BITS))
 
 //
 // Marks a PTE as deleted
 //
-#define MI_SET_PFN_DELETED(x)               ((x)->PteAddress = (PMMPTE)((ULONG_PTR)(x)->PteAddress | 1))
-#define MI_IS_PFN_DELETED(x)                ((ULONG_PTR)((x)->PteAddress) & 1)
+#define MI_SET_PFN_DELETED(x) ((x)->PteAddress = (PMMPTE)((ULONG_PTR)(x)->PteAddress | 1))
+#define MI_IS_PFN_DELETED(x) ((ULONG_PTR)((x)->PteAddress) & 1)
 
 //
 // Special values for LoadedImports
 //
 #ifdef _WIN64
-#define MM_SYSLDR_NO_IMPORTS   (PVOID)0xFFFFFFFFFFFFFFFEULL
-#define MM_SYSLDR_BOOT_LOADED  (PVOID)0xFFFFFFFFFFFFFFFFULL
+#define MM_SYSLDR_NO_IMPORTS (PVOID)0xFFFFFFFFFFFFFFFEULL
+#define MM_SYSLDR_BOOT_LOADED (PVOID)0xFFFFFFFFFFFFFFFFULL
 #else
-#define MM_SYSLDR_NO_IMPORTS   (PVOID)0xFFFFFFFE
-#define MM_SYSLDR_BOOT_LOADED  (PVOID)0xFFFFFFFF
+#define MM_SYSLDR_NO_IMPORTS (PVOID)0xFFFFFFFE
+#define MM_SYSLDR_BOOT_LOADED (PVOID)0xFFFFFFFF
 #endif
 #define MM_SYSLDR_SINGLE_ENTRY 0x1
 
 //
 // Number of initial session IDs
 //
-#define MI_INITIAL_SESSION_IDS  64
+#define MI_INITIAL_SESSION_IDS 64
 
 #if defined(_M_IX86) || defined(_M_ARM)
 //
@@ -242,9 +239,9 @@ extern const ULONG MmProtectToValue[32];
 //
 // Returns the color of a page
 //
-#define MI_GET_PAGE_COLOR(x)                ((x) & MmSecondaryColorMask)
-#define MI_GET_NEXT_COLOR()                 (MI_GET_PAGE_COLOR(++MmSystemPageColor))
-#define MI_GET_NEXT_PROCESS_COLOR(x)        (MI_GET_PAGE_COLOR(++(x)->NextPageColor))
+#define MI_GET_PAGE_COLOR(x) ((x)&MmSecondaryColorMask)
+#define MI_GET_NEXT_COLOR() (MI_GET_PAGE_COLOR(++MmSystemPageColor))
+#define MI_GET_NEXT_PROCESS_COLOR(x) (MI_GET_PAGE_COLOR(++(x)->NextPageColor))
 
 //
 // Prototype PTEs that don't yet have a pagefile association
@@ -259,20 +256,20 @@ extern const ULONG MmProtectToValue[32];
 // Number of session data and tag pages
 //
 #define MI_SESSION_DATA_PAGES_MAXIMUM (MM_ALLOCATION_GRANULARITY / PAGE_SIZE)
-#define MI_SESSION_TAG_PAGES_MAXIMUM  (MM_ALLOCATION_GRANULARITY / PAGE_SIZE)
+#define MI_SESSION_TAG_PAGES_MAXIMUM (MM_ALLOCATION_GRANULARITY / PAGE_SIZE)
 
 //
 // Used by MiCheckSecuredVad
 //
-#define MM_READ_WRITE_ALLOWED   11
-#define MM_READ_ONLY_ALLOWED    10
-#define MM_NO_ACCESS_ALLOWED    01
-#define MM_DELETE_CHECK         85
+#define MM_READ_WRITE_ALLOWED 11
+#define MM_READ_ONLY_ALLOWED 10
+#define MM_NO_ACCESS_ALLOWED 01
+#define MM_DELETE_CHECK 85
 
 //
 // System views are binned into 64K chunks
 //
-#define MI_SYSTEM_VIEW_BUCKET_SIZE  _64K
+#define MI_SYSTEM_VIEW_BUCKET_SIZE _64K
 
 //
 // FIXFIX: These should go in ex.h after the pool merge
@@ -280,7 +277,7 @@ extern const ULONG MmProtectToValue[32];
 #ifdef _WIN64
 #define POOL_BLOCK_SIZE 16
 #else
-#define POOL_BLOCK_SIZE  8
+#define POOL_BLOCK_SIZE 8
 #endif
 #define POOL_LISTS_PER_PAGE (PAGE_SIZE / POOL_BLOCK_SIZE)
 #define BASE_POOL_TYPE_MASK 1
@@ -339,20 +336,19 @@ typedef struct _POOL_DESCRIPTOR
 
 typedef struct _POOL_HEADER
 {
-    union
-    {
+    union {
         struct
         {
 #ifdef _WIN64
-            USHORT PreviousSize:8;
-            USHORT PoolIndex:8;
-            USHORT BlockSize:8;
-            USHORT PoolType:8;
+            USHORT PreviousSize : 8;
+            USHORT PoolIndex : 8;
+            USHORT BlockSize : 8;
+            USHORT PoolType : 8;
 #else
-            USHORT PreviousSize:9;
-            USHORT PoolIndex:7;
-            USHORT BlockSize:9;
-            USHORT PoolType:7;
+            USHORT PreviousSize : 9;
+            USHORT PoolIndex : 7;
+            USHORT BlockSize : 9;
+            USHORT PoolType : 7;
 #endif
         };
         ULONG Ulong1;
@@ -360,8 +356,7 @@ typedef struct _POOL_HEADER
 #ifdef _WIN64
     ULONG PoolTag;
 #endif
-    union
-    {
+    union {
 #ifdef _WIN64
         PEPROCESS ProcessBilled;
 #else
@@ -425,7 +420,8 @@ typedef enum _MI_PFN_CACHE_ATTRIBUTE
     MiCached,
     MiWriteCombined,
     MiNotMapped
-} MI_PFN_CACHE_ATTRIBUTE, *PMI_PFN_CACHE_ATTRIBUTE;
+} MI_PFN_CACHE_ATTRIBUTE,
+    *PMI_PFN_CACHE_ATTRIBUTE;
 
 typedef struct _PHYSICAL_MEMORY_RUN
 {
@@ -474,17 +470,16 @@ typedef struct _MMSESSION
 
 typedef struct _MM_SESSION_SPACE_FLAGS
 {
-    ULONG Initialized:1;
-    ULONG DeletePending:1;
-    ULONG Filler:30;
+    ULONG Initialized : 1;
+    ULONG DeletePending : 1;
+    ULONG Filler : 30;
 } MM_SESSION_SPACE_FLAGS;
 
 typedef struct _MM_SESSION_SPACE
 {
     struct _MM_SESSION_SPACE *GlobalVirtualAddress;
     LONG ReferenceCount;
-    union
-    {
+    union {
         ULONG LongFlags;
         MM_SESSION_SPACE_FLAGS Flags;
     } u;
@@ -515,12 +510,12 @@ typedef struct _MM_SESSION_SPACE
     PMMWSLE Wsle;
     PDRIVER_UNLOAD Win32KDriverUnload;
     POOL_DESCRIPTOR PagedPool;
-#if defined (_M_AMD64)
+#if defined(_M_AMD64)
     MMPDE PageDirectory;
 #else
     PMMPDE PageTables;
 #endif
-#if defined (_M_AMD64)
+#if defined(_M_AMD64)
     PMMPTE SpecialPoolFirstPte;
     PMMPTE SpecialPoolLastPte;
     PMMPTE NextPdeForSpecialPoolExpansion;
@@ -657,9 +652,9 @@ extern SIZE_T MmSessionViewSize;
 extern SIZE_T MmSessionPoolSize;
 extern SIZE_T MmSessionImageSize;
 extern PVOID MiSystemViewStart;
-extern PVOID MiSessionPoolEnd;     // 0xBE000000
-extern PVOID MiSessionPoolStart;   // 0xBD000000
-extern PVOID MiSessionViewStart;   // 0xBE000000
+extern PVOID MiSessionPoolEnd;   // 0xBE000000
+extern PVOID MiSessionPoolStart; // 0xBD000000
+extern PVOID MiSessionViewStart; // 0xBE000000
 extern PVOID MiSessionSpaceWs;
 extern ULONG MmMaximumDeadKernelStacks;
 extern SLIST_HEADER MmDeadStackSListHead;
@@ -677,20 +672,18 @@ FORCEINLINE
 BOOLEAN
 MiIsMemoryTypeFree(TYPE_OF_MEMORY MemoryType)
 {
-    return ((MemoryType == LoaderFree) ||
-            (MemoryType == LoaderLoadedProgram) ||
-            (MemoryType == LoaderFirmwareTemporary) ||
-            (MemoryType == LoaderOsloaderStack));
+    return (
+        (MemoryType == LoaderFree) || (MemoryType == LoaderLoadedProgram) || (MemoryType == LoaderFirmwareTemporary) ||
+        (MemoryType == LoaderOsloaderStack));
 }
 
 FORCEINLINE
 BOOLEAN
 MiIsMemoryTypeInvisible(TYPE_OF_MEMORY MemoryType)
 {
-    return ((MemoryType == LoaderFirmwarePermanent) ||
-            (MemoryType == LoaderSpecialMemory) ||
-            (MemoryType == LoaderHALCachedMemory) ||
-            (MemoryType == LoaderBBTMemory));
+    return (
+        (MemoryType == LoaderFirmwarePermanent) || (MemoryType == LoaderSpecialMemory) ||
+        (MemoryType == LoaderHALCachedMemory) || (MemoryType == LoaderBBTMemory));
 }
 
 #ifdef _M_AMD64
@@ -726,8 +719,7 @@ FORCEINLINE
 BOOLEAN
 MiIsUserPde(PVOID Address)
 {
-    return ((Address >= (PVOID)MiAddressToPde(NULL)) &&
-            (Address <= (PVOID)MiHighestUserPde));
+    return ((Address >= (PVOID)MiAddressToPde(NULL)) && (Address <= (PVOID)MiHighestUserPde));
 }
 
 FORCEINLINE
@@ -742,16 +734,16 @@ FORCEINLINE
 BOOLEAN
 MiIsUserAddressOrPageTable(PVOID Address)
 {
-    return ((Address <= MmHighestUserAddress) // MM_HIGHEST_USER_ADDRESS
-            || MiIsUserPte(Address)
-            || MiIsUserPde(Address)
+    return (
+        (Address <= MmHighestUserAddress) // MM_HIGHEST_USER_ADDRESS
+        || MiIsUserPte(Address) || MiIsUserPde(Address)
 #if (_MI_PAGING_LEVELS >= 3)
-            || MiIsUserPpe(Address)
+        || MiIsUserPpe(Address)
 #endif
 #if (_MI_PAGING_LEVELS >= 4)
-            || MiIsUserPxe(Address)
+        || MiIsUserPxe(Address)
 #endif
-            );
+    );
 }
 
 //
@@ -778,8 +770,7 @@ MiDetermineUserGlobalPteMask(IN PVOID PointerPte)
 #if (_MI_PAGING_LEVELS >= 3)
         MiIsUserPpe(PointerPte) ||
 #endif
-        MiIsUserPde(PointerPte) ||
-        MiIsUserPte(PointerPte))
+        MiIsUserPde(PointerPte) || MiIsUserPte(PointerPte))
     {
         /* Set the owner bit */
         MI_MAKE_OWNER_PAGE(&TempPte);
@@ -796,10 +787,11 @@ MiDetermineUserGlobalPteMask(IN PVOID PointerPte)
 //
 FORCEINLINE
 VOID
-MI_MAKE_HARDWARE_PTE_KERNEL(IN PMMPTE NewPte,
-                            IN PMMPTE MappingPte,
-                            IN ULONG_PTR ProtectionMask,
-                            IN PFN_NUMBER PageFrameNumber)
+MI_MAKE_HARDWARE_PTE_KERNEL(
+    IN PMMPTE NewPte,
+    IN PMMPTE MappingPte,
+    IN ULONG_PTR ProtectionMask,
+    IN PFN_NUMBER PageFrameNumber)
 {
     /* Only valid for kernel, non-session PTEs */
     ASSERT(MappingPte > MiHighestUserPte);
@@ -819,10 +811,7 @@ MI_MAKE_HARDWARE_PTE_KERNEL(IN PMMPTE NewPte,
 //
 FORCEINLINE
 VOID
-MI_MAKE_HARDWARE_PTE(IN PMMPTE NewPte,
-                     IN PMMPTE MappingPte,
-                     IN ULONG_PTR ProtectionMask,
-                     IN PFN_NUMBER PageFrameNumber)
+MI_MAKE_HARDWARE_PTE(IN PMMPTE NewPte, IN PMMPTE MappingPte, IN ULONG_PTR ProtectionMask, IN PFN_NUMBER PageFrameNumber)
 {
     /* Set the protection and page */
     NewPte->u.Long = MiDetermineUserGlobalPteMask(MappingPte);
@@ -835,10 +824,11 @@ MI_MAKE_HARDWARE_PTE(IN PMMPTE NewPte,
 //
 FORCEINLINE
 VOID
-MI_MAKE_HARDWARE_PTE_USER(IN PMMPTE NewPte,
-                          IN PMMPTE MappingPte,
-                          IN ULONG_PTR ProtectionMask,
-                          IN PFN_NUMBER PageFrameNumber)
+MI_MAKE_HARDWARE_PTE_USER(
+    IN PMMPTE NewPte,
+    IN PMMPTE MappingPte,
+    IN ULONG_PTR ProtectionMask,
+    IN PFN_NUMBER PageFrameNumber)
 {
     /* Only valid for kernel, non-session PTEs */
     ASSERT(MappingPte <= MiHighestUserPte);
@@ -859,8 +849,7 @@ MI_MAKE_HARDWARE_PTE_USER(IN PMMPTE NewPte,
 //
 FORCEINLINE
 VOID
-MI_MAKE_PROTOTYPE_PTE(IN PMMPTE NewPte,
-                      IN PMMPTE PointerPte)
+MI_MAKE_PROTOTYPE_PTE(IN PMMPTE NewPte, IN PMMPTE PointerPte)
 {
     ULONG_PTR Offset;
 
@@ -888,8 +877,7 @@ MI_MAKE_PROTOTYPE_PTE(IN PMMPTE NewPte,
 //
 FORCEINLINE
 VOID
-MI_MAKE_SUBSECTION_PTE(IN PMMPTE NewPte,
-                       IN PVOID Segment)
+MI_MAKE_SUBSECTION_PTE(IN PMMPTE NewPte, IN PVOID Segment)
 {
     ULONG_PTR Offset;
 
@@ -934,9 +922,7 @@ MI_IS_MAPPED_PTE(PMMPTE PointerPte)
 
 FORCEINLINE
 VOID
-MI_MAKE_TRANSITION_PTE(_Out_ PMMPTE NewPte,
-                       _In_ PFN_NUMBER Page,
-                       _In_ ULONG Protection)
+MI_MAKE_TRANSITION_PTE(_Out_ PMMPTE NewPte, _In_ PFN_NUMBER Page, _In_ ULONG Protection)
 {
     NewPte->u.Long = 0;
     NewPte->u.Trans.Transition = 1;
@@ -954,6 +940,19 @@ MI_IS_PHYSICAL_ADDRESS(IN PVOID Address)
 {
     PMMPDE PointerPde;
 
+#if (_MI_PAGING_LEVELS >= 4)
+    if (!MiAddressToPxe(Address)->u.Hard.Valid)
+    {
+        return FALSE;
+    }
+#endif
+#if (_MI_PAGING_LEVELS >= 3)
+    if (!MiAddressToPpe(Address)->u.Hard.Valid)
+    {
+        return FALSE;
+    }
+#endif
+
     /* Large pages are never paged out, always physically resident */
     PointerPde = MiAddressToPde(Address);
     return ((PointerPde->u.Hard.LargePage) && (PointerPde->u.Hard.Valid));
@@ -964,8 +963,7 @@ MI_IS_PHYSICAL_ADDRESS(IN PVOID Address)
 //
 FORCEINLINE
 VOID
-MI_WRITE_VALID_PTE(IN PMMPTE PointerPte,
-                   IN MMPTE TempPte)
+MI_WRITE_VALID_PTE(IN PMMPTE PointerPte, IN MMPTE TempPte)
 {
     /* Write the valid PTE */
     ASSERT(PointerPte->u.Hard.Valid == 0);
@@ -984,8 +982,7 @@ MI_WRITE_VALID_PTE(IN PMMPTE PointerPte,
 //
 FORCEINLINE
 VOID
-MI_UPDATE_VALID_PTE(IN PMMPTE PointerPte,
-                   IN MMPTE TempPte)
+MI_UPDATE_VALID_PTE(IN PMMPTE PointerPte, IN MMPTE TempPte)
 {
     /* Write the valid PTE */
     ASSERT(PointerPte->u.Hard.Valid == 1);
@@ -999,8 +996,7 @@ MI_UPDATE_VALID_PTE(IN PMMPTE PointerPte,
 //
 FORCEINLINE
 VOID
-MI_WRITE_INVALID_PTE(IN PMMPTE PointerPte,
-                     IN MMPTE InvalidPte)
+MI_WRITE_INVALID_PTE(IN PMMPTE PointerPte, IN MMPTE InvalidPte)
 {
     /* Write the invalid PTE */
     ASSERT(InvalidPte.u.Hard.Valid == 0);
@@ -1025,8 +1021,7 @@ MI_ERASE_PTE(IN PMMPTE PointerPte)
 //
 FORCEINLINE
 VOID
-MI_WRITE_VALID_PDE(IN PMMPDE PointerPde,
-                   IN MMPDE TempPde)
+MI_WRITE_VALID_PDE(IN PMMPDE PointerPde, IN MMPDE TempPde)
 {
     /* Write the valid PDE */
     ASSERT(PointerPde->u.Hard.Valid == 0);
@@ -1042,8 +1037,7 @@ MI_WRITE_VALID_PDE(IN PMMPDE PointerPde,
 //
 FORCEINLINE
 VOID
-MI_WRITE_INVALID_PDE(IN PMMPDE PointerPde,
-                     IN MMPDE InvalidPde)
+MI_WRITE_INVALID_PDE(IN PMMPDE PointerPde, IN MMPDE InvalidPde)
 {
     /* Write the invalid PDE */
     ASSERT(InvalidPde.u.Hard.Valid == 0);
@@ -1062,12 +1056,10 @@ BOOLEAN
 MM_ANY_WS_LOCK_HELD(IN PETHREAD Thread)
 {
     /* If any of these are held, return TRUE */
-    return ((Thread->OwnsProcessWorkingSetExclusive) ||
-            (Thread->OwnsProcessWorkingSetShared) ||
-            (Thread->OwnsSystemWorkingSetExclusive) ||
-            (Thread->OwnsSystemWorkingSetShared) ||
-            (Thread->OwnsSessionWorkingSetExclusive) ||
-            (Thread->OwnsSessionWorkingSetShared));
+    return (
+        (Thread->OwnsProcessWorkingSetExclusive) || (Thread->OwnsProcessWorkingSetShared) ||
+        (Thread->OwnsSystemWorkingSetExclusive) || (Thread->OwnsSystemWorkingSetShared) ||
+        (Thread->OwnsSessionWorkingSetExclusive) || (Thread->OwnsSessionWorkingSetShared));
 }
 
 //
@@ -1086,9 +1078,10 @@ MI_WS_OWNER(IN PEPROCESS Process)
     {
         DPRINT("Current thread %p is attached to another process %p\n", PsGetCurrentThread(), Process);
     }
-    return ((KeGetCurrentThread()->ApcState.Process == &Process->Pcb) &&
-            ((PsGetCurrentThread()->OwnsProcessWorkingSetExclusive) ||
-             (PsGetCurrentThread()->OwnsProcessWorkingSetShared)));
+    return (
+        (KeGetCurrentThread()->ApcState.Process == &Process->Pcb) &&
+        ((PsGetCurrentThread()->OwnsProcessWorkingSetExclusive) ||
+         (PsGetCurrentThread()->OwnsProcessWorkingSetShared)));
 }
 
 //
@@ -1099,18 +1092,15 @@ BOOLEAN
 MiIsRosSectionObject(IN PVOID Section)
 {
     PROS_SECTION_OBJECT RosSection = Section;
-    if ((RosSection->Type == 'SC') && (RosSection->Size == 'TN')) return TRUE;
+    if ((RosSection->Type == 'SC') && (RosSection->Size == 'TN'))
+        return TRUE;
     return FALSE;
 }
 
-#define MI_IS_ROS_PFN(x)     ((x)->u4.AweAllocation == TRUE)
+#define MI_IS_ROS_PFN(x) ((x)->u4.AweAllocation == TRUE)
 
-VOID
-NTAPI
-MiDecrementReferenceCount(
-    IN PMMPFN Pfn1,
-    IN PFN_NUMBER PageFrameIndex
-);
+VOID NTAPI
+MiDecrementReferenceCount(IN PMMPFN Pfn1, IN PFN_NUMBER PageFrameIndex);
 
 FORCEINLINE
 BOOLEAN
@@ -1124,8 +1114,7 @@ MI_IS_WS_UNSAFE(IN PEPROCESS Process)
 //
 FORCEINLINE
 VOID
-MiLockProcessWorkingSet(IN PEPROCESS Process,
-                        IN PETHREAD Thread)
+MiLockProcessWorkingSet(IN PEPROCESS Process, IN PETHREAD Thread)
 {
     /* Shouldn't already be owning the process working set */
     ASSERT(Thread->OwnsProcessWorkingSetShared == FALSE);
@@ -1146,8 +1135,7 @@ MiLockProcessWorkingSet(IN PEPROCESS Process,
 
 FORCEINLINE
 VOID
-MiLockProcessWorkingSetShared(IN PEPROCESS Process,
-                              IN PETHREAD Thread)
+MiLockProcessWorkingSetShared(IN PEPROCESS Process, IN PETHREAD Thread)
 {
     /* Shouldn't already be owning the process working set */
     ASSERT(Thread->OwnsProcessWorkingSetShared == FALSE);
@@ -1169,8 +1157,7 @@ MiLockProcessWorkingSetShared(IN PEPROCESS Process,
 
 FORCEINLINE
 VOID
-MiLockProcessWorkingSetUnsafe(IN PEPROCESS Process,
-                              IN PETHREAD Thread)
+MiLockProcessWorkingSetUnsafe(IN PEPROCESS Process, IN PETHREAD Thread)
 {
     /* Shouldn't already be owning the process working set */
     ASSERT(Thread->OwnsProcessWorkingSetExclusive == FALSE);
@@ -1194,8 +1181,7 @@ MiLockProcessWorkingSetUnsafe(IN PEPROCESS Process,
 //
 FORCEINLINE
 VOID
-MiUnlockProcessWorkingSet(IN PEPROCESS Process,
-                          IN PETHREAD Thread)
+MiUnlockProcessWorkingSet(IN PEPROCESS Process, IN PETHREAD Thread)
 {
     /* Make sure we are the owner of a safe acquisition */
     ASSERT(MI_WS_OWNER(Process));
@@ -1215,8 +1201,7 @@ MiUnlockProcessWorkingSet(IN PEPROCESS Process,
 //
 FORCEINLINE
 VOID
-MiUnlockProcessWorkingSetShared(IN PEPROCESS Process,
-                                IN PETHREAD Thread)
+MiUnlockProcessWorkingSetShared(IN PEPROCESS Process, IN PETHREAD Thread)
 {
     /* Make sure we are the owner of a safe acquisition (because shared) */
     ASSERT(MI_WS_OWNER(Process));
@@ -1239,8 +1224,7 @@ MiUnlockProcessWorkingSetShared(IN PEPROCESS Process,
 //
 FORCEINLINE
 VOID
-MiUnlockProcessWorkingSetUnsafe(IN PEPROCESS Process,
-                                IN PETHREAD Thread)
+MiUnlockProcessWorkingSetUnsafe(IN PEPROCESS Process, IN PETHREAD Thread)
 {
     /* Make sure we are the owner of an unsafe acquisition */
     ASSERT(KeGetCurrentIrql() <= APC_LEVEL);
@@ -1265,8 +1249,7 @@ MiUnlockProcessWorkingSetUnsafe(IN PEPROCESS Process,
 //
 FORCEINLINE
 VOID
-MiLockWorkingSet(IN PETHREAD Thread,
-                 IN PMMSUPPORT WorkingSet)
+MiLockWorkingSet(IN PETHREAD Thread, IN PMMSUPPORT WorkingSet)
 {
     /* Block APCs */
     KeEnterGuardedRegion();
@@ -1284,22 +1267,19 @@ MiLockWorkingSet(IN PETHREAD Thread,
     if (WorkingSet == &MmSystemCacheWs)
     {
         /* Own the system working set */
-        ASSERT((Thread->OwnsSystemWorkingSetExclusive == FALSE) &&
-               (Thread->OwnsSystemWorkingSetShared == FALSE));
+        ASSERT((Thread->OwnsSystemWorkingSetExclusive == FALSE) && (Thread->OwnsSystemWorkingSetShared == FALSE));
         Thread->OwnsSystemWorkingSetExclusive = TRUE;
     }
     else if (WorkingSet->Flags.SessionSpace)
     {
         /* Own the session working set */
-        ASSERT((Thread->OwnsSessionWorkingSetExclusive == FALSE) &&
-               (Thread->OwnsSessionWorkingSetShared == FALSE));
+        ASSERT((Thread->OwnsSessionWorkingSetExclusive == FALSE) && (Thread->OwnsSessionWorkingSetShared == FALSE));
         Thread->OwnsSessionWorkingSetExclusive = TRUE;
     }
     else
     {
         /* Own the process working set */
-        ASSERT((Thread->OwnsProcessWorkingSetExclusive == FALSE) &&
-               (Thread->OwnsProcessWorkingSetShared == FALSE));
+        ASSERT((Thread->OwnsProcessWorkingSetExclusive == FALSE) && (Thread->OwnsProcessWorkingSetShared == FALSE));
         Thread->OwnsProcessWorkingSetExclusive = TRUE;
     }
 }
@@ -1309,8 +1289,7 @@ MiLockWorkingSet(IN PETHREAD Thread,
 //
 FORCEINLINE
 VOID
-MiUnlockWorkingSet(IN PETHREAD Thread,
-                   IN PMMSUPPORT WorkingSet)
+MiUnlockWorkingSet(IN PETHREAD Thread, IN PMMSUPPORT WorkingSet)
 {
     /* Working set should be in global memory */
     ASSERT(MI_IS_SESSION_ADDRESS((PVOID)WorkingSet) == FALSE);
@@ -1319,22 +1298,19 @@ MiUnlockWorkingSet(IN PETHREAD Thread,
     if (WorkingSet == &MmSystemCacheWs)
     {
         /* Release the system working set */
-        ASSERT((Thread->OwnsSystemWorkingSetExclusive == TRUE) ||
-               (Thread->OwnsSystemWorkingSetShared == TRUE));
+        ASSERT((Thread->OwnsSystemWorkingSetExclusive == TRUE) || (Thread->OwnsSystemWorkingSetShared == TRUE));
         Thread->OwnsSystemWorkingSetExclusive = FALSE;
     }
     else if (WorkingSet->Flags.SessionSpace)
     {
         /* Release the session working set */
-        ASSERT((Thread->OwnsSessionWorkingSetExclusive == TRUE) ||
-               (Thread->OwnsSessionWorkingSetShared == TRUE));
+        ASSERT((Thread->OwnsSessionWorkingSetExclusive == TRUE) || (Thread->OwnsSessionWorkingSetShared == TRUE));
         Thread->OwnsSessionWorkingSetExclusive = 0;
     }
     else
     {
         /* Release the process working set */
-        ASSERT((Thread->OwnsProcessWorkingSetExclusive) ||
-               (Thread->OwnsProcessWorkingSetShared));
+        ASSERT((Thread->OwnsProcessWorkingSetExclusive) || (Thread->OwnsProcessWorkingSetShared));
         Thread->OwnsProcessWorkingSetExclusive = FALSE;
     }
 
@@ -1347,10 +1323,7 @@ MiUnlockWorkingSet(IN PETHREAD Thread,
 
 FORCEINLINE
 VOID
-MiUnlockProcessWorkingSetForFault(IN PEPROCESS Process,
-                                  IN PETHREAD Thread,
-                                  OUT PBOOLEAN Safe,
-                                  OUT PBOOLEAN Shared)
+MiUnlockProcessWorkingSetForFault(IN PEPROCESS Process, IN PETHREAD Thread, OUT PBOOLEAN Safe, OUT PBOOLEAN Shared)
 {
     ASSERT(MI_WS_OWNER(Process));
 
@@ -1380,10 +1353,7 @@ MiUnlockProcessWorkingSetForFault(IN PEPROCESS Process,
 
 FORCEINLINE
 VOID
-MiLockProcessWorkingSetForFault(IN PEPROCESS Process,
-                                IN PETHREAD Thread,
-                                IN BOOLEAN Safe,
-                                IN BOOLEAN Shared)
+MiLockProcessWorkingSetForFault(IN PEPROCESS Process, IN PETHREAD Thread, IN BOOLEAN Safe, IN BOOLEAN Shared)
 {
     /* Check if this was a safe lock or not */
     if (Safe)
@@ -1436,8 +1406,7 @@ MiReleaseExpansionLock(KIRQL OldIrql)
 //
 FORCEINLINE
 PMMPTE
-MI_GET_PROTOTYPE_PTE_FOR_VPN(IN PMMVAD Vad,
-                             IN ULONG_PTR Vpn)
+MI_GET_PROTOTYPE_PTE_FOR_VPN(IN PMMVAD Vad, IN ULONG_PTR Vpn)
 {
     PMMPTE ProtoPte;
 
@@ -1477,8 +1446,7 @@ MiDropLockCount(IN PMMPFN Pfn1)
         ASSERT(Pfn1->u3.e1.PageLocation != ActiveAndValid);
 
         /* Is it a prototype PTE? */
-        if ((Pfn1->u3.e1.PrototypePte == 1) &&
-            (Pfn1->OriginalPte.u.Soft.Prototype == 1))
+        if ((Pfn1->u3.e1.PrototypePte == 1) && (Pfn1->OriginalPte.u.Soft.Prototype == 1))
         {
             /* FIXME: We should return commit */
             DPRINT1("Not returning commit for prototype PTE\n");
@@ -1515,8 +1483,7 @@ MiDereferencePfnAndDropLockCount(IN PMMPFN Pfn1)
             ASSERT(Pfn1->u2.ShareCount == 0);
 
             /* Is it a prototype PTE? */
-            if ((Pfn1->u3.e1.PrototypePte == 1) &&
-                (Pfn1->OriginalPte.u.Soft.Prototype == 1))
+            if ((Pfn1->u3.e1.PrototypePte == 1) && (Pfn1->OriginalPte.u.Soft.Prototype == 1))
             {
                 /* FIXME: We should return commit */
                 DPRINT1("Not returning commit for prototype PTE\n");
@@ -1530,9 +1497,7 @@ MiDereferencePfnAndDropLockCount(IN PMMPFN Pfn1)
         }
 
         /* Drop a reference the short way, and that's it */
-        RefCount = InterlockedCompareExchange16((PSHORT)&Pfn1->u3.e2.ReferenceCount,
-                                                OldRefCount - 1,
-                                                OldRefCount);
+        RefCount = InterlockedCompareExchange16((PSHORT)&Pfn1->u3.e2.ReferenceCount, OldRefCount - 1, OldRefCount);
         ASSERT(RefCount != 0);
     } while (OldRefCount != RefCount);
 
@@ -1547,8 +1512,7 @@ MiDereferencePfnAndDropLockCount(IN PMMPFN Pfn1)
             ASSERT(Pfn1->u3.e1.PageLocation == ActiveAndValid);
 
             /* Is it a prototype PTE? */
-            if ((Pfn1->u3.e1.PrototypePte == 1) &&
-                (Pfn1->OriginalPte.u.Soft.Prototype == 1))
+            if ((Pfn1->u3.e1.PrototypePte == 1) && (Pfn1->OriginalPte.u.Soft.Prototype == 1))
             {
                 /* We don't handle ethis */
                 ASSERT(FALSE);
@@ -1585,8 +1549,7 @@ MiReferenceProbedPageAndBumpLockCount(IN PMMPFN Pfn1)
         ASSERT((Pfn1->u2.ShareCount != 0) && (Pfn1->u3.e1.PageLocation == ActiveAndValid));
 
         /* Is it a prototype PTE? */
-        if ((Pfn1->u3.e1.PrototypePte == 1) &&
-            (Pfn1->OriginalPte.u.Soft.Prototype == 1))
+        if ((Pfn1->u3.e1.PrototypePte == 1) && (Pfn1->OriginalPte.u.Soft.Prototype == 1))
         {
             /* FIXME: We should charge commit */
             DPRINT1("Not charging commit for prototype PTE\n");
@@ -1605,14 +1568,13 @@ MiReferenceProbedPageAndBumpLockCount(IN PMMPFN Pfn1)
         ASSERT(OldRefCount < 2500);
 
         /* Bump it up by one */
-        RefCount = InterlockedCompareExchange16((PSHORT)&Pfn1->u3.e2.ReferenceCount,
-                                                OldRefCount + 1,
-                                                OldRefCount);
+        RefCount = InterlockedCompareExchange16((PSHORT)&Pfn1->u3.e2.ReferenceCount, OldRefCount + 1, OldRefCount);
         ASSERT(RefCount != 0);
     } while (OldRefCount != RefCount);
 
     /* Was this the first lock attempt? If not, undo our bump */
-    if (OldRefCount != 1) InterlockedDecrementSizeT(&MmSystemLockPagesCount);
+    if (OldRefCount != 1)
+        InterlockedDecrementSizeT(&MmSystemLockPagesCount);
 }
 
 //
@@ -1626,8 +1588,7 @@ MiReferenceUsedPageAndBumpLockCount(IN PMMPFN Pfn1)
     USHORT NewRefCount;
 
     /* Is it a prototype PTE? */
-    if ((Pfn1->u3.e1.PrototypePte == 1) &&
-        (Pfn1->OriginalPte.u.Soft.Prototype == 1))
+    if ((Pfn1->u3.e1.PrototypePte == 1) && (Pfn1->OriginalPte.u.Soft.Prototype == 1))
     {
         /* FIXME: We should charge commit */
         DPRINT1("Not charging commit for prototype PTE\n");
@@ -1675,8 +1636,7 @@ MiReferenceUnusedPageAndBumpLockCount(IN PMMPFN Pfn1)
     ASSERT(Pfn1->u3.e1.PageLocation != ActiveAndValid);
 
     /* Is it a prototype PTE? */
-    if ((Pfn1->u3.e1.PrototypePte == 1) &&
-        (Pfn1->OriginalPte.u.Soft.Prototype == 1))
+    if ((Pfn1->u3.e1.PrototypePte == 1) && (Pfn1->OriginalPte.u.Soft.Prototype == 1))
     {
         /* FIXME: We should charge commit */
         DPRINT1("Not charging commit for prototype PTE\n");
@@ -1726,11 +1686,12 @@ MiIncrementPageTableReferences(IN PVOID Address)
 
     {
         ULONG count = MiCountUsedPageTableEntries(Address);
-        //DbgPrint("+++ Address=%p PFN 0x%lx => %lu (%lu)\n", Address, PointerPde->u.Hard.PageFrameNumber, *RefCount, count);
-        if ((count != *RefCount) && (count + 1 != *RefCount)) __debugbreak();
-        //if (PointerPde->u.Hard.PageFrameNumber == 0xa04) __debugbreak();
+        // DbgPrint("+++ Address=%p PFN 0x%lx => %lu (%lu)\n", Address, PointerPde->u.Hard.PageFrameNumber, *RefCount,
+        // count);
+        if ((count != *RefCount) && (count + 1 != *RefCount))
+            __debugbreak();
+        // if (PointerPde->u.Hard.PageFrameNumber == 0xa04) __debugbreak();
     }
-
 }
 
 FORCEINLINE
@@ -1748,8 +1709,10 @@ MiDecrementPageTableReferences(IN PVOID Address)
 
     {
         ULONG count = MiCountUsedPageTableEntries(Address);
-        //DbgPrint("--- Address=%p PFN 0x%lx => %lu (%lu)\n", Address, PointerPde->u.Hard.PageFrameNumber, *RefCount, count);
-        if ((count != *RefCount) && (count != *RefCount + 1)) __debugbreak();
+        // DbgPrint("--- Address=%p PFN 0x%lx => %lu (%lu)\n", Address, PointerPde->u.Hard.PageFrameNumber, *RefCount,
+        // count);
+        if ((count != *RefCount) && (count != *RefCount + 1))
+            __debugbreak();
     }
 
     return *RefCount;
@@ -1808,98 +1771,55 @@ MiQueryPageTableReferences(IN PVOID Address)
 INIT_FUNCTION
 BOOLEAN
 NTAPI
-MmArmInitSystem(
-    IN ULONG Phase,
-    IN PLOADER_PARAMETER_BLOCK LoaderBlock
-);
+MmArmInitSystem(IN ULONG Phase, IN PLOADER_PARAMETER_BLOCK LoaderBlock);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializeSessionSpaceLayout(VOID);
+VOID NTAPI MiInitializeSessionSpaceLayout(VOID);
 
 INIT_FUNCTION
 NTSTATUS
 NTAPI
-MiInitMachineDependent(
-    IN PLOADER_PARAMETER_BLOCK LoaderBlock
-);
+MiInitMachineDependent(IN PLOADER_PARAMETER_BLOCK LoaderBlock);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiComputeColorInformation(
-    VOID
-);
+VOID NTAPI MiComputeColorInformation(VOID);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiMapPfnDatabase(
-    IN PLOADER_PARAMETER_BLOCK LoaderBlock
-);
+VOID NTAPI
+MiMapPfnDatabase(IN PLOADER_PARAMETER_BLOCK LoaderBlock);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializeColorTables(
-    VOID
-);
+VOID NTAPI MiInitializeColorTables(VOID);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializePfnDatabase(
-    IN PLOADER_PARAMETER_BLOCK LoaderBlock
-);
+VOID NTAPI
+MiInitializePfnDatabase(IN PLOADER_PARAMETER_BLOCK LoaderBlock);
 
-VOID
-NTAPI
-MiInitializeSessionWsSupport(
-    VOID
-);
+VOID NTAPI MiInitializeSessionWsSupport(VOID);
 
-VOID
-NTAPI
-MiInitializeSessionIds(
-    VOID
-);
+VOID NTAPI MiInitializeSessionIds(VOID);
 
 INIT_FUNCTION
 BOOLEAN
 NTAPI
-MiInitializeMemoryEvents(
-    VOID
-);
+MiInitializeMemoryEvents(VOID);
 
 INIT_FUNCTION
 PFN_NUMBER
 NTAPI
-MxGetNextPage(
-    IN PFN_NUMBER PageCount
-);
+MxGetNextPage(IN PFN_NUMBER PageCount);
 
 INIT_FUNCTION
 PPHYSICAL_MEMORY_DESCRIPTOR
 NTAPI
-MmInitializeMemoryLimits(
-    IN PLOADER_PARAMETER_BLOCK LoaderBlock,
-    IN PBOOLEAN IncludeType
-);
+MmInitializeMemoryLimits(IN PLOADER_PARAMETER_BLOCK LoaderBlock, IN PBOOLEAN IncludeType);
 
 PFN_NUMBER
 NTAPI
-MiPagesInLoaderBlock(
-    IN PLOADER_PARAMETER_BLOCK LoaderBlock,
-    IN PBOOLEAN IncludeType
-);
+MiPagesInLoaderBlock(IN PLOADER_PARAMETER_BLOCK LoaderBlock, IN PBOOLEAN IncludeType);
 
-VOID
-FASTCALL
-MiSyncARM3WithROS(
-    IN PVOID AddressStart,
-    IN PVOID AddressEnd
-);
+VOID FASTCALL
+MiSyncARM3WithROS(IN PVOID AddressStart, IN PVOID AddressEnd);
 
 NTSTATUS
 NTAPI
@@ -1908,95 +1828,57 @@ MiRosProtectVirtualMemory(
     IN OUT PVOID *BaseAddress,
     IN OUT PSIZE_T NumberOfBytesToProtect,
     IN ULONG NewAccessProtection,
-    OUT PULONG OldAccessProtection OPTIONAL
-);
+    OUT PULONG OldAccessProtection OPTIONAL);
 
 NTSTATUS
 NTAPI
-MmArmAccessFault(
-    IN ULONG FaultCode,
-    IN PVOID Address,
-    IN KPROCESSOR_MODE Mode,
-    IN PVOID TrapInformation
-);
+MmArmAccessFault(IN ULONG FaultCode, IN PVOID Address, IN KPROCESSOR_MODE Mode, IN PVOID TrapInformation);
 
 NTSTATUS
 FASTCALL
-MiCheckPdeForPagedPool(
-    IN PVOID Address
-);
+MiCheckPdeForPagedPool(IN PVOID Address);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializeNonPagedPool(
-    VOID
-);
+VOID NTAPI MiInitializeNonPagedPool(VOID);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializeNonPagedPoolThresholds(
-    VOID
-);
+VOID NTAPI MiInitializeNonPagedPoolThresholds(VOID);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializePoolEvents(
-    VOID
-);
+VOID NTAPI MiInitializePoolEvents(VOID);
 
 INIT_FUNCTION
-VOID                      //
-NTAPI                     //
-InitializePool(           //
-    IN POOL_TYPE PoolType,// FIXFIX: This should go in ex.h after the pool merge
-    IN ULONG Threshold    //
-);                        //
+VOID                           //
+    NTAPI                      //
+    InitializePool(            //
+        IN POOL_TYPE PoolType, // FIXFIX: This should go in ex.h after the pool merge
+        IN ULONG Threshold     //
+    );                         //
 
 // FIXFIX: THIS ONE TOO
 INIT_FUNCTION
-VOID
-NTAPI
+VOID NTAPI
 ExInitializePoolDescriptor(
     IN PPOOL_DESCRIPTOR PoolDescriptor,
     IN POOL_TYPE PoolType,
     IN ULONG PoolIndex,
     IN ULONG Threshold,
-    IN PVOID PoolLock
-);
+    IN PVOID PoolLock);
 
 NTSTATUS
 NTAPI
-MiInitializeSessionPool(
-    VOID
-);
+MiInitializeSessionPool(VOID);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializeSystemPtes(
-    IN PMMPTE StartingPte,
-    IN ULONG NumberOfPtes,
-    IN MMSYSTEM_PTE_POOL_TYPE PoolType
-);
+VOID NTAPI
+MiInitializeSystemPtes(IN PMMPTE StartingPte, IN ULONG NumberOfPtes, IN MMSYSTEM_PTE_POOL_TYPE PoolType);
 
 PMMPTE
 NTAPI
-MiReserveSystemPtes(
-    IN ULONG NumberOfPtes,
-    IN MMSYSTEM_PTE_POOL_TYPE SystemPtePoolType
-);
+MiReserveSystemPtes(IN ULONG NumberOfPtes, IN MMSYSTEM_PTE_POOL_TYPE SystemPtePoolType);
 
-VOID
-NTAPI
-MiReleaseSystemPtes(
-    IN PMMPTE StartingPte,
-    IN ULONG NumberOfPtes,
-    IN MMSYSTEM_PTE_POOL_TYPE SystemPtePoolType
-);
-
+VOID NTAPI
+MiReleaseSystemPtes(IN PMMPTE StartingPte, IN ULONG NumberOfPtes, IN MMSYSTEM_PTE_POOL_TYPE SystemPtePoolType);
 
 PFN_NUMBER
 NTAPI
@@ -2005,8 +1887,7 @@ MiFindContiguousPages(
     IN PFN_NUMBER HighestPfn,
     IN PFN_NUMBER BoundaryPfn,
     IN PFN_NUMBER SizeInPages,
-    IN MEMORY_CACHING_TYPE CacheType
-);
+    IN MEMORY_CACHING_TYPE CacheType);
 
 PVOID
 NTAPI
@@ -2017,46 +1898,28 @@ MiCheckForContiguousMemory(
     IN PFN_NUMBER LowestPfn,
     IN PFN_NUMBER HighestPfn,
     IN PFN_NUMBER BoundaryPfn,
-    IN MI_PFN_CACHE_ATTRIBUTE CacheAttribute
-);
+    IN MI_PFN_CACHE_ATTRIBUTE CacheAttribute);
 
-PMDL
-NTAPI
+PMDL NTAPI
 MiAllocatePagesForMdl(
     IN PHYSICAL_ADDRESS LowAddress,
     IN PHYSICAL_ADDRESS HighAddress,
     IN PHYSICAL_ADDRESS SkipBytes,
     IN SIZE_T TotalBytes,
     IN MI_PFN_CACHE_ATTRIBUTE CacheAttribute,
-    IN ULONG Flags
-);
+    IN ULONG Flags);
 
-VOID
-NTAPI
-MiInsertPageInList(
-    IN PMMPFNLIST ListHead,
-    IN PFN_NUMBER PageFrameIndex
-);
+VOID NTAPI
+MiInsertPageInList(IN PMMPFNLIST ListHead, IN PFN_NUMBER PageFrameIndex);
 
-VOID
-NTAPI
-MiUnlinkFreeOrZeroedPage(
-    IN PMMPFN Entry
-);
+VOID NTAPI
+MiUnlinkFreeOrZeroedPage(IN PMMPFN Entry);
 
-VOID
-NTAPI
-MiUnlinkPageFromList(
-    IN PMMPFN Pfn
-);
+VOID NTAPI
+MiUnlinkPageFromList(IN PMMPFN Pfn);
 
-VOID
-NTAPI
-MiInitializePfn(
-    IN PFN_NUMBER PageFrameIndex,
-    IN PMMPTE PointerPte,
-    IN BOOLEAN Modified
-);
+VOID NTAPI
+MiInitializePfn(IN PFN_NUMBER PageFrameIndex, IN PMMPTE PointerPte, IN BOOLEAN Modified);
 
 NTSTATUS
 NTAPI
@@ -2064,109 +1927,59 @@ MiInitializeAndChargePfn(
     OUT PPFN_NUMBER PageFrameIndex,
     IN PMMPDE PointerPde,
     IN PFN_NUMBER ContainingPageFrame,
-    IN BOOLEAN SessionAllocation
-);
+    IN BOOLEAN SessionAllocation);
 
-VOID
-NTAPI
-MiInitializePfnAndMakePteValid(
-    IN PFN_NUMBER PageFrameIndex,
-    IN PMMPTE PointerPte,
-    IN MMPTE TempPte
-);
+VOID NTAPI
+MiInitializePfnAndMakePteValid(IN PFN_NUMBER PageFrameIndex, IN PMMPTE PointerPte, IN MMPTE TempPte);
 
-VOID
-NTAPI
-MiInitializePfnForOtherProcess(
-    IN PFN_NUMBER PageFrameIndex,
-    IN PVOID PteAddress,
-    IN PFN_NUMBER PteFrame
-);
+VOID NTAPI
+MiInitializePfnForOtherProcess(IN PFN_NUMBER PageFrameIndex, IN PVOID PteAddress, IN PFN_NUMBER PteFrame);
 
-VOID
-NTAPI
-MiDecrementShareCount(
-    IN PMMPFN Pfn1,
-    IN PFN_NUMBER PageFrameIndex
-);
+VOID NTAPI
+MiDecrementShareCount(IN PMMPFN Pfn1, IN PFN_NUMBER PageFrameIndex);
 
 PFN_NUMBER
 NTAPI
-MiRemoveAnyPage(
-    IN ULONG Color
-);
+MiRemoveAnyPage(IN ULONG Color);
 
 PFN_NUMBER
 NTAPI
-MiRemoveZeroPage(
-    IN ULONG Color
-);
+MiRemoveZeroPage(IN ULONG Color);
 
-VOID
-NTAPI
-MiZeroPhysicalPage(
-    IN PFN_NUMBER PageFrameIndex
-);
+VOID NTAPI
+MiZeroPhysicalPage(IN PFN_NUMBER PageFrameIndex);
 
-VOID
-NTAPI
-MiInsertPageInFreeList(
-    IN PFN_NUMBER PageFrameIndex
-);
+VOID NTAPI
+MiInsertPageInFreeList(IN PFN_NUMBER PageFrameIndex);
 
 PFN_COUNT
 NTAPI
-MiDeleteSystemPageableVm(
-    IN PMMPTE PointerPte,
-    IN PFN_NUMBER PageCount,
-    IN ULONG Flags,
-    OUT PPFN_NUMBER ValidPages
-);
+MiDeleteSystemPageableVm(IN PMMPTE PointerPte, IN PFN_NUMBER PageCount, IN ULONG Flags, OUT PPFN_NUMBER ValidPages);
 
 ULONG
 NTAPI
-MiGetPageProtection(
-    IN PMMPTE PointerPte
-);
+MiGetPageProtection(IN PMMPTE PointerPte);
 
 PLDR_DATA_TABLE_ENTRY
 NTAPI
-MiLookupDataTableEntry(
-    IN PVOID Address
-);
+MiLookupDataTableEntry(IN PVOID Address);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializeDriverLargePageList(
-    VOID
-);
+VOID NTAPI MiInitializeDriverLargePageList(VOID);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiInitializeLargePageSupport(
-    VOID
-);
+VOID NTAPI MiInitializeLargePageSupport(VOID);
 
 INIT_FUNCTION
-VOID
-NTAPI
-MiSyncCachedRanges(
-    VOID
-);
+VOID NTAPI MiSyncCachedRanges(VOID);
 
 BOOLEAN
 NTAPI
-MiIsPfnInUse(
-    IN PMMPFN Pfn1
-);
+MiIsPfnInUse(IN PMMPFN Pfn1);
 
 PMMVAD
 NTAPI
-MiLocateAddress(
-    IN PVOID VirtualAddress
-);
+MiLocateAddress(IN PVOID VirtualAddress);
 
 TABLE_SEARCH_RESULT
 NTAPI
@@ -2174,8 +1987,7 @@ MiCheckForConflictingNode(
     IN ULONG_PTR StartVpn,
     IN ULONG_PTR EndVpn,
     IN PMM_AVL_TABLE Table,
-    OUT PMMADDRESS_NODE *NodeOrParent
-);
+    OUT PMMADDRESS_NODE *NodeOrParent);
 
 TABLE_SEARCH_RESULT
 NTAPI
@@ -2185,8 +1997,7 @@ MiFindEmptyAddressRangeDownTree(
     IN ULONG_PTR Alignment,
     IN PMM_AVL_TABLE Table,
     OUT PULONG_PTR Base,
-    OUT PMMADDRESS_NODE *Parent
-);
+    OUT PMMADDRESS_NODE *Parent);
 
 NTSTATUS
 NTAPI
@@ -2195,8 +2006,7 @@ MiFindEmptyAddressRangeDownBasedTree(
     IN ULONG_PTR BoundaryAddress,
     IN ULONG_PTR Alignment,
     IN PMM_AVL_TABLE Table,
-    OUT PULONG_PTR Base
-);
+    OUT PULONG_PTR Base);
 
 TABLE_SEARCH_RESULT
 NTAPI
@@ -2205,23 +2015,14 @@ MiFindEmptyAddressRangeInTree(
     IN ULONG_PTR Alignment,
     IN PMM_AVL_TABLE Table,
     OUT PMMADDRESS_NODE *PreviousVad,
-    OUT PULONG_PTR Base
-);
+    OUT PULONG_PTR Base);
 
 NTSTATUS
 NTAPI
-MiCheckSecuredVad(
-    IN PMMVAD Vad,
-    IN PVOID Base,
-    IN SIZE_T Size,
-    IN ULONG ProtectionMask
-);
+MiCheckSecuredVad(IN PMMVAD Vad, IN PVOID Base, IN SIZE_T Size, IN ULONG ProtectionMask);
 
-VOID
-NTAPI
-MiInsertVad(
-    _Inout_ PMMVAD Vad,
-    _Inout_ PMM_AVL_TABLE VadRoot);
+VOID NTAPI
+MiInsertVad(_Inout_ PMMVAD Vad, _Inout_ PMM_AVL_TABLE VadRoot);
 
 NTSTATUS
 NTAPI
@@ -2233,143 +2034,74 @@ MiInsertVadEx(
     _In_ ULONG_PTR Alignment,
     _In_ ULONG AllocationType);
 
-VOID
-NTAPI
-MiInsertBasedSection(
-    IN PSECTION Section
-);
+VOID NTAPI
+MiInsertBasedSection(IN PSECTION Section);
 
 NTSTATUS
 NTAPI
-MiUnmapViewOfSection(
-    IN PEPROCESS Process,
-    IN PVOID BaseAddress,
-    IN ULONG Flags
-);
+MiUnmapViewOfSection(IN PEPROCESS Process, IN PVOID BaseAddress, IN ULONG Flags);
 
 NTSTATUS
 NTAPI
-MiRosUnmapViewOfSection(
-    IN PEPROCESS Process,
-    IN PVOID BaseAddress,
-    IN BOOLEAN SkipDebuggerNotify
-);
+MiRosUnmapViewOfSection(IN PEPROCESS Process, IN PVOID BaseAddress, IN BOOLEAN SkipDebuggerNotify);
 
-VOID
-NTAPI
-MiInsertNode(
-    IN PMM_AVL_TABLE Table,
-    IN PMMADDRESS_NODE NewNode,
-    PMMADDRESS_NODE Parent,
-    TABLE_SEARCH_RESULT Result
-);
+VOID NTAPI
+MiInsertNode(IN PMM_AVL_TABLE Table, IN PMMADDRESS_NODE NewNode, PMMADDRESS_NODE Parent, TABLE_SEARCH_RESULT Result);
 
-VOID
-NTAPI
-MiRemoveNode(
-    IN PMMADDRESS_NODE Node,
-    IN PMM_AVL_TABLE Table
-);
+VOID NTAPI
+MiRemoveNode(IN PMMADDRESS_NODE Node, IN PMM_AVL_TABLE Table);
 
 PMMADDRESS_NODE
 NTAPI
-MiGetPreviousNode(
-    IN PMMADDRESS_NODE Node
-);
+MiGetPreviousNode(IN PMMADDRESS_NODE Node);
 
 PMMADDRESS_NODE
 NTAPI
-MiGetNextNode(
-    IN PMMADDRESS_NODE Node
-);
+MiGetNextNode(IN PMMADDRESS_NODE Node);
 
 BOOLEAN
 NTAPI
-MiInitializeSystemSpaceMap(
-    IN PMMSESSION InputSession OPTIONAL
-);
+MiInitializeSystemSpaceMap(IN PMMSESSION InputSession OPTIONAL);
 
-VOID
-NTAPI
-MiSessionRemoveProcess(
-    VOID
-);
+VOID NTAPI MiSessionRemoveProcess(VOID);
 
-VOID
-NTAPI
-MiReleaseProcessReferenceToSessionDataPage(
-    IN PMM_SESSION_SPACE SessionGlobal
-);
+VOID NTAPI
+MiReleaseProcessReferenceToSessionDataPage(IN PMM_SESSION_SPACE SessionGlobal);
 
-VOID
-NTAPI
-MiSessionAddProcess(
-    IN PEPROCESS NewProcess
-);
+VOID NTAPI
+MiSessionAddProcess(IN PEPROCESS NewProcess);
 
 NTSTATUS
 NTAPI
-MiSessionCommitPageTables(
-    IN PVOID StartVa,
-    IN PVOID EndVa
-);
+MiSessionCommitPageTables(IN PVOID StartVa, IN PVOID EndVa);
 
 ULONG
 NTAPI
-MiMakeProtectionMask(
-    IN ULONG Protect
-);
+MiMakeProtectionMask(IN ULONG Protect);
 
-VOID
-NTAPI
-MiDeleteVirtualAddresses(
-    IN ULONG_PTR Va,
-    IN ULONG_PTR EndingAddress,
-    IN PMMVAD Vad
-);
+VOID NTAPI
+MiDeleteVirtualAddresses(IN ULONG_PTR Va, IN ULONG_PTR EndingAddress, IN PMMVAD Vad);
 
-VOID
-NTAPI
-MiDeletePte(
-    IN PMMPTE PointerPte,
-    IN PVOID VirtualAddress,
-    IN PEPROCESS CurrentProcess,
-    IN PMMPTE PrototypePte
-);
+VOID NTAPI
+MiDeletePte(IN PMMPTE PointerPte, IN PVOID VirtualAddress, IN PEPROCESS CurrentProcess, IN PMMPTE PrototypePte);
 
 ULONG
 NTAPI
-MiMakeSystemAddressValid(
-    IN PVOID PageTableVirtualAddress,
-    IN PEPROCESS CurrentProcess
-);
+MiMakeSystemAddressValid(IN PVOID PageTableVirtualAddress, IN PEPROCESS CurrentProcess);
 
 ULONG
 NTAPI
-MiMakeSystemAddressValidPfn(
-    IN PVOID VirtualAddress,
-    IN KIRQL OldIrql
-);
+MiMakeSystemAddressValidPfn(IN PVOID VirtualAddress, IN KIRQL OldIrql);
 
-VOID
-NTAPI
-MiRemoveMappedView(
-    IN PEPROCESS CurrentProcess,
-    IN PMMVAD Vad
-);
+VOID NTAPI
+MiRemoveMappedView(IN PEPROCESS CurrentProcess, IN PMMVAD Vad);
 
 PSUBSECTION
 NTAPI
-MiLocateSubsection(
-    IN PMMVAD Vad,
-    IN ULONG_PTR Vpn
-);
+MiLocateSubsection(IN PMMVAD Vad, IN ULONG_PTR Vpn);
 
-VOID
-NTAPI
-MiDeleteARM3Section(
-    PVOID ObjectBody
-);
+VOID NTAPI
+MiDeleteARM3Section(PVOID ObjectBody);
 
 NTSTATUS
 NTAPI
@@ -2378,33 +2110,21 @@ MiQueryMemorySectionName(
     IN PVOID BaseAddress,
     OUT PVOID MemoryInformation,
     IN SIZE_T MemoryInformationLength,
-    OUT PSIZE_T ReturnLength
-);
+    OUT PSIZE_T ReturnLength);
 
 NTSTATUS
 NTAPI
-MiRosUnmapViewInSystemSpace(
-    IN PVOID MappedBase
-);
+MiRosUnmapViewInSystemSpace(IN PVOID MappedBase);
 
 POOL_TYPE
 NTAPI
-MmDeterminePoolType(
-    IN PVOID PoolAddress
-);
+MmDeterminePoolType(IN PVOID PoolAddress);
 
-VOID
-NTAPI
-MiMakePdeExistAndMakeValid(
-    IN PMMPDE PointerPde,
-    IN PEPROCESS TargetProcess,
-    IN KIRQL OldIrql
-);
+VOID NTAPI
+MiMakePdeExistAndMakeValid(IN PMMPDE PointerPde, IN PEPROCESS TargetProcess, IN KIRQL OldIrql);
 
-VOID
-NTAPI
-MiWriteProtectSystemImage(
-    _In_ PVOID ImageBase);
+VOID NTAPI
+MiWriteProtectSystemImage(_In_ PVOID ImageBase);
 
 //
 // MiRemoveZeroPage will use inline code to zero out the page manually if only
@@ -2417,7 +2137,8 @@ FORCEINLINE
 PFN_NUMBER
 MiRemoveZeroPageSafe(IN ULONG Color)
 {
-    if (MmFreePagesByColor[ZeroedPageList][Color].Flink != LIST_HEAD) return MiRemoveZeroPage(Color);
+    if (MmFreePagesByColor[ZeroedPageList][Color].Flink != LIST_HEAD)
+        return MiRemoveZeroPage(Color);
     return 0;
 }
 
